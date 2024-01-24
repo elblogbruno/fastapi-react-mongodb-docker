@@ -11,6 +11,7 @@ async def test_token(url: str) -> Any:
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
 
+    print(url)
     print(soup.prettify())
     
     product_title = soup.find('h1', class_='product-title').text.strip()
