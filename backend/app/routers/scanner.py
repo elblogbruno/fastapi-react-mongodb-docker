@@ -5,15 +5,10 @@ from bs4 import BeautifulSoup
 
 router = APIRouter()
 
-@router.get("/scan-web")
-async def test_token(url: str) -> Any:
-    # Scan the website to obtain info about the product on it
-    response = requests.get(url)
-    soup = BeautifulSoup(response.content, 'html.parser')
+@router.post("/scan-web")
+async def test_token(html_content: str) -> Any:
+    soup = BeautifulSoup(html_content, 'html.parser')
 
-    print(url)
-    print(soup.prettify())
-    
     product_title = soup.find('h1', class_='product-title').text.strip()
     price = soup.find('span', class_='product-price').text.strip()
     description = soup.find('div', class_='product-description').text.strip()
